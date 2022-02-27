@@ -86,7 +86,7 @@ namespace DronModuleNew
                     // An IoT hub can filter on these properties without access to the message body.
 
                     int y = Int32.Parse(message.Properties["y"]);
-                    message.Properties.Add("crashAlert", (y < 1) ? "true" : "false");
+                    message.Properties.Add("crashAlert", (y < 5) ? "true" : "false");
 
                     Console.WriteLine("Drone Crash Alert!, DevideId: " + message.Properties["DevideId"]);
                     
