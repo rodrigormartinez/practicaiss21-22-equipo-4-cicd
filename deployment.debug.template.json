@@ -63,7 +63,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.DronModuleNew.debug}",
+              "image": "${MODULES.DronModuleNew}",
               "createOptions": {}
             }
           },

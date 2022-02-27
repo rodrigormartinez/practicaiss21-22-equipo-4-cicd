@@ -52,10 +52,9 @@ namespace Equipo4EdgeDrone
             vy = vy + ay*timeDelay;
             vz = vz + az*timeDelay;
 
-            Random rnd = new Random();
-            int x = rnd.Next(-20, 20);
-            int y = rnd.Next(0, 15);
-            int z = rnd.Next(-30, 30);
+            x = Math.Min(Math.Max(-boundary, x + vx), boundary); //position update with boundary check
+            y = Math.Min(Math.Max(-boundary, y + vy), boundary);
+            z = Math.Max(z + vz, 0);
 
             //build message and serialization
             var positionDataPoint = new
@@ -69,7 +68,6 @@ namespace Equipo4EdgeDrone
             var message = new Message(Encoding.ASCII.GetBytes(messageString));
             //Log data
             Console.WriteLine("{0} - Position Report: {1}", DateTime.Now, messageString);
-
             return message;
         }
 
@@ -83,10 +81,10 @@ namespace Equipo4EdgeDrone
             await ioTHubModuleClient.OpenAsync();
             Console.WriteLine("Drone Position Module - IoT Hub module client initialized.");
 
-            for(int i=0; i < 100; i++){
+            for(int i=0; i<10000; i++){
                 // Register callback to be called when a message is received by the module
                 await ioTHubModuleClient.SendEventAsync("dronOutput",GenerateUpdatedPositionMessage());
-                Thread.Sleep(1000);
+                Thread.Sleep(5000);
             }
         }
     }

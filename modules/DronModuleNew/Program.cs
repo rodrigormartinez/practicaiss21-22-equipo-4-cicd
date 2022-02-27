@@ -81,6 +81,14 @@ namespace DronModuleNew
                     {
                         pipeMessage.Properties.Add(prop.Key, prop.Value);
                     }
+
+                    // Add a custom application property to the message.
+                    // An IoT hub can filter on these properties without access to the message body.
+
+                    int y = Int32.Parse(message.Properties["y"]);
+                    message.Properties.Add("crashAlert", (y < 1) ? "true" : "false");
+
+                    Console.WriteLine("Drone Crash Alert!, DevideId: " + message.Properties["DevideId"]);
                     
                     await moduleClient.SendEventAsync("output1", pipeMessage);
                 
