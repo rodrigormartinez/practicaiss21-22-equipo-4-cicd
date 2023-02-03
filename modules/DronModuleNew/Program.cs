@@ -10,6 +10,9 @@ namespace DronModuleNew
     using System.Threading.Tasks;
     using Microsoft.Azure.Devices.Client;
     using Microsoft.Azure.Devices.Client.Transport.Mqtt;
+    using Microsoft.Azure.Devices.Shared;
+    using Newtonsoft.Json;
+    using System.Net;
 
     class Program
     {
